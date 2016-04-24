@@ -115,6 +115,28 @@ def blrObjFunction(initialWeights, *args):
     ##################
     # HINT: Do not forget to add the bias term to your input data
 
+    #-----------------------------------Calculate the error function---------------------------------------------------
+    # Concatenate column of ones to the training data
+    ones = np.ones((n_data, 1))
+    train_data = np.concatenate((train_data, ones), axis=1)
+
+    # Likelihood function used to in the error function
+    # Matrix of the values has been calculated
+    # Step 1: Calculate matrix of thetas
+    initialWeights = initialWeights.reshape(initialWeights.shape[0], 1)
+    theta = sigmoid(np.dot(train_data, initialWeights))
+
+    #Step 2: Calculate the likelihood function
+    likelihood =  (np.power(theta, labeli) * np.power(1 - theta,1-labeli)) 
+    
+    #Step 3: Calculate the error function by taking the log of the likelihood * -1 and then divide by N
+    error = (-1 * np.sum( np.log(likelihood) ) ) / n_data
+    
+    
+
+    
+
+
     return error, error_grad
 
 
