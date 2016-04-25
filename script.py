@@ -1,6 +1,7 @@
 import numpy as np
 from scipy.io import loadmat
 from scipy.optimize import minimize
+from scipy.special import expit
 
 
 def preprocess():
@@ -109,7 +110,6 @@ def blrObjFunction(initialWeights, *args):
     n_features = train_data.shape[1]
     error = 0
     error_grad = np.zeros((n_features + 1, 1))
-
     ##################
     # YOUR CODE HERE #
     ##################
@@ -124,18 +124,18 @@ def blrObjFunction(initialWeights, *args):
     # Matrix of the values has been calculated
     # Step 1: Calculate matrix of thetas
     initialWeights = initialWeights.reshape(initialWeights.shape[0], 1)
-    theta = sigmoid(np.dot(train_data, initialWeights))
-
+    theta = expit(np.dot(train_data, initialWeights))
+    
     #Step 2: Calculate the likelihood function
-    likelihood =  (np.power(theta, labeli) * np.power(1 - theta,1-labeli)) 
+    likelihood =  np.add( np.multiply(theta, labeli),  np.multiply(1 - labeli, np.log(1 - theta) ) )
     
     #Step 3: Calculate the error function by taking the log of the likelihood * -1 and then divide by N
-    error = (-1 * np.sum( np.log(likelihood) ) ) / n_data
-    
-    
-
-    
-
+    error = np.sum(likelihood) / n_data
+    error = -1*error
+    #-----------------------------------Calculate the error gradient---------------------------------------------------
+    #np.dot(train_data.T, theta - labeli)
+    error_grad = np.sum( (theta-labeli)*train_data, axis=0)
+    error_grad = error_grad/n_data
 
     return error, error_grad
 
@@ -161,6 +161,15 @@ def blrPredict(W, data):
     # YOUR CODE HERE #
     ##################
     # HINT: Do not forget to add the bias term to your input data
+    #Concatenate an array of ones to the column data
+    ones = np.ones((data.shape[0], 1))
+    data = np.concatenate((data, ones), axis=1)
+
+    #Calculate sigmoid of the dataset
+    label = sigmoid(np.dot(data, W))
+    #Choose the highest probability
+    label = np.argmax(label, axis=1)    
+    label = label.reshape(data.shape[0], 1)
 
     return label
 
