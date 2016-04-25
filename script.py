@@ -135,7 +135,8 @@ def blrObjFunction(initialWeights, *args):
     error = -1*likelihood
     error = np.sum(likelihood) / n_data
     #-----------------------------------Calculate the error gradient---------------------------------------------------
-    error_grad = np.sum( (theta-labeli)*train_data, axis=0)
+    error_grad = (theta-labeli)*train_data
+    print error_grad.shape
     error_grad = error_grad/n_data
 
     return error, error_grad
