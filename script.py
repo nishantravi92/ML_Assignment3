@@ -120,24 +120,22 @@ def blrObjFunction(initialWeights, *args):
     # Concatenate column of ones to the training data
     ones = np.ones((n_data, 1))
     train_data = np.concatenate((train_data, ones), axis=1)
-
+    labeli = labeli.reshape(labeli.shape[0], 1)
     # Likelihood function used to in the error function
     # Matrix of the values has been calculated
     # Step 1: Calculate matrix of thetas
     theta = sigmoid(np.dot(train_data, initialWeights))
-    
+    theta = theta.reshape(theta.shape[0], 1)    
     #Step 2: Calculate the likelihood function
     likelihood =  np.add( np.multiply(labeli, np.log(theta) ),  np.multiply(1.0 - labeli, np.log(1.0 - theta) ) )
     
     #Step 3: Calculate the error function by taking the log of the likelihood * -1 and then divide by N
     error = np.sum(-1*likelihood) / n_data
     #-----------------------------------Calculate the error gradient---------------------------------------------------
-    
-    error_grad = np.multiply( np.subtract(theta, labeli ), train_data)
-    error_grad = np.sum(error_grad, axis=1)
+    error_grad = np.subtract(theta, labeli )*train_data
+    error_grad = np.sum(error_grad, axis=0)
     error_grad = error_grad/n_data
-    error_grad = np.flatten(error_grad)
-    
+    error_grad = error_grad.flatten()
     return error, error_grad
 
 def blrPredict(W, data):
