@@ -1,6 +1,7 @@
 import numpy as np
 from scipy.io import loadmat
 from scipy.optimize import minimize
+from scipy.special import expit
 
 
 def preprocess():
@@ -110,7 +111,7 @@ def blrObjFunction(initialWeights, *args):
     n_features = train_data.shape[1]
     error = 0
     error_grad = np.zeros((n_features + 1, 1))
-    
+   
     ##################
     # YOUR CODE HERE #
     ##################
@@ -118,6 +119,7 @@ def blrObjFunction(initialWeights, *args):
 
     #-----------------------------------Calculate the error function---------------------------------------------------
     # Concatenate column of ones to the training data
+    
     ones = np.ones((n_data, 1))
     train_data = np.concatenate((train_data, ones), axis=1)
 
@@ -127,19 +129,17 @@ def blrObjFunction(initialWeights, *args):
     theta = sigmoid(np.dot(train_data, initialWeights))
     
     #Step 2: Calculate the likelihood function
-    likelihood =  np.add( np.multiply(theta, labeli),  np.multiply(1 - labeli, np.log(1 - theta) ) )
+    likelihood =  np.add( np.multiply(theta, labeli),  np.multiply(1.0 - labeli, np.log(1.0 - theta) ) )
     
     #Step 3: Calculate the error function by taking the log of the likelihood * -1 and then divide by N
-    error = np.sum(likelihood) / n_data
     error = -1*error
+    error = np.sum(likelihood) / n_data
     #-----------------------------------Calculate the error gradient---------------------------------------------------
-    #np.dot(train_data.T, theta - labeli)
     error_grad = np.sum( (theta-labeli)*train_data, axis=0)
     error_grad = error_grad/n_data
 
     return error, error_grad
     """
-
     x = np.hstack((np.ones((n_data,1)),train_data))
     y = sigmoid(np.dot(x,initialWeights))
 
@@ -151,6 +151,7 @@ def blrObjFunction(initialWeights, *args):
 
     return error, error_grad
     """
+
 def blrPredict(W, data):
     """
      blrObjFunction predicts the label of data given the data and parameter W 
