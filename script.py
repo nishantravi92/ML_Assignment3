@@ -1,8 +1,6 @@
 import numpy as np
 from scipy.io import loadmat
 from scipy.optimize import minimize
-from scipy.special import expit
-
 
 def preprocess():
     """ 
@@ -136,6 +134,7 @@ def blrObjFunction(initialWeights, *args):
     error_grad = np.sum(error_grad, axis=0)
     error_grad = error_grad/n_data
     error_grad = error_grad.flatten()
+    
     return error, error_grad
 
 def blrPredict(W, data):
@@ -188,8 +187,12 @@ def mlrObjFunction(params, *args):
         error_grad: the vector of size (D+1) x 10 representing the gradient of
                     error function
     """
+    train_data, Y = args
+    initialWeights = params
+
     n_data = train_data.shape[0]
     n_feature = train_data.shape[1]
+    initialWeights = np.reshape(initialWeights, (n_feature+1, Y.shape[1]))
     error = 0
     error_grad = np.zeros((n_feature + 1, n_class))
 
@@ -197,6 +200,18 @@ def mlrObjFunction(params, *args):
     # YOUR CODE HERE #
     ##################
     # HINT: Do not forget to add the bias term to your input data
+    # Concatenate column of ones to the training data
+    ones = np.ones((n_data, 1))
+    train_data = np.concatenate((train_data, ones), axis=1)
+    epsilon =  np.exp(np.dot(train_data, initialWeights))
+    theta = epsilon/epsilon.sum(axis=1)[:,None]
+    error = np.multiply(np.log(theta), Y)
+    error = np.sum(-1*error)/n_data
+
+    #Calculation of error gradient
+    error_grad = np.dot(train_data.T, (theta-Y))
+    error_grad = error_grad.flatten()
+    error_grad = error_grad/n_data
 
     return error, error_grad
 
@@ -222,6 +237,14 @@ def mlrPredict(W, data):
     # YOUR CODE HERE #
     ##################
     # HINT: Do not forget to add the bias term to your input data
+    ones = np.ones((data.shape[0], 1))
+    data = np.concatenate((data, ones), axis=1)
+
+    #Calculate sigmoid of the dataset
+    label = sigmoid(np.dot(data, W))
+    #Choose the highest probability
+    label = np.argmax(label, axis=1)    
+    label = label.reshape(data.shape[0], 1)
 
     return label
 
@@ -244,6 +267,7 @@ Y = np.zeros((n_train, n_class))
 for i in range(n_class):
     Y[:, i] = (train_label == i).astype(int).ravel()
 
+
 # Logistic Regression with Gradient Descent
 W = np.zeros((n_feature + 1, n_class))
 initialWeights = np.zeros((n_feature + 1, 1))
@@ -265,6 +289,7 @@ print('\n Validation set Accuracy:' + str(100 * np.mean((predicted_label == vali
 # Find the accuracy on Testing Dataset
 predicted_label = blrPredict(W, test_data)
 print('\n Testing set Accuracy:' + str(100 * np.mean((predicted_label == test_label).astype(float))) + '%')
+
 
 """
 Script for Support Vector Machine
