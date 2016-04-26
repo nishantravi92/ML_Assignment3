@@ -348,7 +348,7 @@ rbf_varyC()
 """
 Script for Extra Credit Part
 """
-FOR EXTRA CREDIT ONLY
+#FOR EXTRA CREDIT ONLY
 W_b = np.zeros((n_feature + 1, n_class))
 initialWeights_b = np.zeros((n_feature + 1, n_class))
 opts_b = {'maxiter': 100}
