@@ -275,7 +275,47 @@ print('\n\n--------------SVM-------------------\n\n')
 # YOUR CODE HERE #
 ##################
 
+def linear_kernel():
+    print "Linear Kernel"
+    classifier = SVC(kernel='linear')
+    classifier.fit(train_data,train_label)
 
+    print "\nAccuracy for Linear Kernel"
+    print "\nValidation Data"+str(classifier.score(validation_data,validation_label))
+    print "\nTesting set Accuracy:"+str(classifier.score(validation_data,validation_label))
+
+
+def rbf_gamma1():
+    print "Radial Basis with gamma 1"
+    classifier = SVC(gamma=1)
+    classifier.fit(train_data,train_label)
+
+    print "\nAccuracy for Radial Basis Function with gamma 1"
+    print "\nValidation Data"+str(classifier.score(validation_data,validation_label))
+    print "\nTesting set Accuracy:"+str(classifier.score(validation_data,validation_label))
+
+def rbf_gamma_default():
+    print "Radial Basis with everything set to default"
+    classifier = SVC()
+    classifier.fit(train_data,train_label)
+
+    print "\nAccuracy for Radial Basis Function default"
+    print "\nValidation Data"+str(classifier.score(validation_data,validation_label))
+    print "\nTesting set Accuracy:"+str(classifier.score(validation_data,validation_label))
+
+
+def rbf_varyC():
+    for i in xrange(10,101,10):
+        print "Radial Basis with everything set to default"
+        classifier = SVC(C=i)
+        classifier.fit(train_data,train_label)
+
+        print "\nAccuracy for Radial Basis Function with C = "+str(i)
+        print "\nValidation Data"+str(classifier.score(validation_data,validation_label))
+        print "\nTesting set Accuracy:"+str(classifier.score(validation_data,validation_label))
+
+
+linear_kernel()
 """
 Script for Extra Credit Part
 """
