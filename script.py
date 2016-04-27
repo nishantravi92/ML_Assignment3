@@ -256,40 +256,40 @@ Script for Logistic Regression
 train_data, train_label, validation_data, validation_label, test_data, test_label = preprocess()
 
 # number of classes
-n_class = 10
+# n_class = 10
 
-# number of training samples
-n_train = train_data.shape[0]
+# # number of training samples
+# n_train = train_data.shape[0]
 
-# number of features
-n_feature = train_data.shape[1]
+# # number of features
+# n_feature = train_data.shape[1]
 
-Y = np.zeros((n_train, n_class))
-for i in range(n_class):
-    Y[:, i] = (train_label == i).astype(int).ravel()
+# Y = np.zeros((n_train, n_class))
+# for i in range(n_class):
+#     Y[:, i] = (train_label == i).astype(int).ravel()
 
 
-# Logistic Regression with Gradient Descent
-W = np.zeros((n_feature + 1, n_class))
-initialWeights = np.zeros((n_feature + 1, 1))
-opts = {'maxiter': 100}
-for i in range(n_class):
-    labeli = Y[:, i].reshape(n_train, 1)
-    args = (train_data, labeli)
-    nn_params = minimize(blrObjFunction, initialWeights, jac=True, args=args, method='CG', options=opts)
-    W[:, i] = nn_params.x.reshape((n_feature + 1,))
+# # Logistic Regression with Gradient Descent
+# W = np.zeros((n_feature + 1, n_class))
+# initialWeights = np.zeros((n_feature + 1, 1))
+# opts = {'maxiter': 100}
+# for i in range(n_class):
+#     labeli = Y[:, i].reshape(n_train, 1)
+#     args = (train_data, labeli)
+#     nn_params = minimize(blrObjFunction, initialWeights, jac=True, args=args, method='CG', options=opts)
+#     W[:, i] = nn_params.x.reshape((n_feature + 1,))
 
-# Find the accuracy on Training Dataset
-predicted_label = blrPredict(W, train_data)
-print('\n Training set Accuracy:' + str(100 * np.mean((predicted_label == train_label).astype(float))) + '%')
+# # Find the accuracy on Training Dataset
+# predicted_label = blrPredict(W, train_data)
+# print('\n Training set Accuracy:' + str(100 * np.mean((predicted_label == train_label).astype(float))) + '%')
 
-# Find the accuracy on Validation Dataset
-predicted_label = blrPredict(W, validation_data)
-print('\n Validation set Accuracy:' + str(100 * np.mean((predicted_label == validation_label).astype(float))) + '%')
+# # Find the accuracy on Validation Dataset
+# predicted_label = blrPredict(W, validation_data)
+# print('\n Validation set Accuracy:' + str(100 * np.mean((predicted_label == validation_label).astype(float))) + '%')
 
-# Find the accuracy on Testing Dataset
-predicted_label = blrPredict(W, test_data)
-print('\n Testing set Accuracy:' + str(100 * np.mean((predicted_label == test_label).astype(float))) + '%')
+# # Find the accuracy on Testing Dataset
+# predicted_label = blrPredict(W, test_data)
+# print('\n Testing set Accuracy:' + str(100 * np.mean((predicted_label == test_label).astype(float))) + '%')
 
 
 """
@@ -348,23 +348,23 @@ rbf_varyC()
 """
 Script for Extra Credit Part
 """
-#FOR EXTRA CREDIT ONLY
-W_b = np.zeros((n_feature + 1, n_class))
-initialWeights_b = np.zeros((n_feature + 1, n_class))
-opts_b = {'maxiter': 100}
+# #FOR EXTRA CREDIT ONLY
+# W_b = np.zeros((n_feature + 1, n_class))
+# initialWeights_b = np.zeros((n_feature + 1, n_class))
+# opts_b = {'maxiter': 100}
 
-args_b = (train_data, Y)
-nn_params = minimize(mlrObjFunction, initialWeights_b, jac=True, args=args_b, method='CG', options=opts_b)
-W_b = nn_params.x.reshape((n_feature + 1, n_class))
+# args_b = (train_data, Y)
+# nn_params = minimize(mlrObjFunction, initialWeights_b, jac=True, args=args_b, method='CG', options=opts_b)
+# W_b = nn_params.x.reshape((n_feature + 1, n_class))
 
-# Find the accuracy on Training Dataset
-predicted_label_b = mlrPredict(W_b, train_data)
-print('\n Training set Accuracy:' + str(100 * np.mean((predicted_label_b == train_label).astype(float))) + '%')
+# # Find the accuracy on Training Dataset
+# predicted_label_b = mlrPredict(W_b, train_data)
+# print('\n Training set Accuracy:' + str(100 * np.mean((predicted_label_b == train_label).astype(float))) + '%')
 
-# Find the accuracy on Validation Dataset
-predicted_label_b = mlrPredict(W_b, validation_data)
-print('\n Validation set Accuracy:' + str(100 * np.mean((predicted_label_b == validation_label).astype(float))) + '%')
+# # Find the accuracy on Validation Dataset
+# predicted_label_b = mlrPredict(W_b, validation_data)
+# print('\n Validation set Accuracy:' + str(100 * np.mean((predicted_label_b == validation_label).astype(float))) + '%')
 
-# Find the accuracy on Testing Dataset
-predicted_label_b = mlrPredict(W_b, test_data)
-print('\n Testing set Accuracy:' + str(100 * np.mean((predicted_label_b == test_label).astype(float))) + '%')
+# # Find the accuracy on Testing Dataset
+# predicted_label_b = mlrPredict(W_b, test_data)
+# print('\n Testing set Accuracy:' + str(100 * np.mean((predicted_label_b == test_label).astype(float))) + '%')
