@@ -307,6 +307,7 @@ classifier = SVC(kernel='linear')
 classifier.fit(train_data,train_label.ravel())
 
 print("\nAccuracy for Linear Kernel")
+print("\nTraining Data"+str(classifier.score(train_data,train_label.ravel())))
 print("\nValidation Data"+str(classifier.score(validation_data,validation_label.ravel())))
 print("\nTesting set Accuracy:"+str(classifier.score(test_data,test_label.ravel())))
 
@@ -317,6 +318,7 @@ classifier = SVC(gamma=1.0)
 classifier.fit(train_data,train_label.ravel())
 
 print("\nAccuracy for Radial Basis Function with gamma 1")
+print("\nTraining Data"+str(classifier.score(train_data,train_label.ravel())))
 print("\nValidation Data"+str(classifier.score(validation_data,validation_label.ravel())))
 print("\nTesting set Accuracy:"+str(classifier.score(test_data,test_label.ravel())))
 
@@ -326,16 +328,26 @@ classifier = SVC()
 classifier.fit(train_data,train_label.ravel())
 
 print("\nAccuracy for Radial Basis Function default")
+print("\nTraining Data"+str(classifier.score(train_data,train_label.ravel())))
 print("\nValidation Data"+str(classifier.score(validation_data,validation_label.ravel())))
 print("\nTesting set Accuracy:"+str(classifier.score(test_data,test_label.ravel())))
 
-print("Radial Basis with everything set to default")
+
+classifier = SVC(C=1)
+classifier.fit(train_data,train_label.ravel())
+
+print("\nAccuracy for Radial Basis Function with C = 1")
+print("\nTraining Data"+str(classifier.score(train_data,train_label.ravel())))
+print("\nValidation Data"+str(classifier.score(validation_data,validation_label.ravel())))
+print("\nTesting set Accuracy:"+str(classifier.score(test_data,test_label.ravel())))
+
+
 # def rbf_varyC():
-for i in xrange(10,101,10):
+for i in range(10,101,10):
+    print("\nAccuracy for Radial Basis Function with C = "+str(i))
     classifier = SVC(C=i)
     classifier.fit(train_data,train_label.ravel())
-
-    print("\nAccuracy for Radial Basis Function with C = "+str(i))
+    print("\nTraining Data"+str(classifier.score(train_data,train_label.ravel())))
     print("\nValidation Data"+str(classifier.score(validation_data,validation_label.ravel())))
     print("\nTesting set Accuracy:"+str(classifier.score(test_data,test_label.ravel())))
 
