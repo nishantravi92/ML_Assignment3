@@ -300,62 +300,40 @@ print('\n\n--------------SVM-------------------\n\n')
 ##################
 # YOUR CODE HERE #
 ##################
+f=open('output.txt','w')
+
+def kernel_functions(gamma='auto',C=1.0,kernel='rbf'):
+    classifier = SVC(gamma=gamma,C=C,kernel=kernel)
+    classifier.fit(train_data,train_label.ravel())
+    trainingaccuracy=classifier.score(train_data,train_label.ravel())*100
+    print("\nTraining Data: "+str(trainingaccuracy))
+    f.write("\nTraining Data: "+str(trainingaccuracy))
+    validationaccuracy = classifier.score(validation_data,validation_label.ravel())*100
+    print("\nValidation Data: "+str(validationaccuracy))
+    f.write("\nValidation Data: "+str(validationaccuracy))
+    testingaccuracy = classifier.score(test_data,test_label.ravel())*100
+    print("\nTesting set Accuracy: "+ str(testingaccuracy))
+    f.write("\nTesting set Accuracy: "+ str(testingaccuracy))
 
 # def linear_kernel():
-print("Linear Kernel")
-classifier = SVC(kernel='linear')
-classifier.fit(train_data,train_label.ravel())
-
-print("\nAccuracy for Linear Kernel")
-print("\nTraining Data"+str(classifier.score(train_data,train_label.ravel())))
-print("\nValidation Data"+str(classifier.score(validation_data,validation_label.ravel())))
-print("\nTesting set Accuracy:"+str(classifier.score(test_data,test_label.ravel())))
-
-
-# def rbf_gamma1():
-print("Radial Basis with gamma 1")
-classifier = SVC(gamma=1.0)
-classifier.fit(train_data,train_label.ravel())
+# print("\nAccuracy for Linear Kernel")
+# kernel_functions(kernel='linear')
 
 print("\nAccuracy for Radial Basis Function with gamma 1")
-print("\nTraining Data"+str(classifier.score(train_data,train_label.ravel())))
-print("\nValidation Data"+str(classifier.score(validation_data,validation_label.ravel())))
-print("\nTesting set Accuracy:"+str(classifier.score(test_data,test_label.ravel())))
-
+f.write("\nAccuracy for Radial Basis Function with gamma 1")
+kernel_functions(gamma=1.0)
 # def rbf_gamma_default():
-print("Radial Basis with everything set to default")
-classifier = SVC()
-classifier.fit(train_data,train_label.ravel())
 
-print("\nAccuracy for Radial Basis Function default")
-print("\nTraining Data"+str(classifier.score(train_data,train_label.ravel())))
-print("\nValidation Data"+str(classifier.score(validation_data,validation_label.ravel())))
-print("\nTesting set Accuracy:"+str(classifier.score(test_data,test_label.ravel())))
+print("\nAccuracy for Radial Basis Function for default arguments and C=1 ")
+f.write("\nAccuracy for Radial Basis Function for default arguments and C=1 ")
+kernel_functions()
 
-
-classifier = SVC(C=1)
-classifier.fit(train_data,train_label.ravel())
-
-print("\nAccuracy for Radial Basis Function with C = 1")
-print("\nTraining Data"+str(classifier.score(train_data,train_label.ravel())))
-print("\nValidation Data"+str(classifier.score(validation_data,validation_label.ravel())))
-print("\nTesting set Accuracy:"+str(classifier.score(test_data,test_label.ravel())))
-
-
-# def rbf_varyC():
 for i in range(10,101,10):
     print("\nAccuracy for Radial Basis Function with C = "+str(i))
-    classifier = SVC(C=i)
-    classifier.fit(train_data,train_label.ravel())
-    print("\nTraining Data"+str(classifier.score(train_data,train_label.ravel())))
-    print("\nValidation Data"+str(classifier.score(validation_data,validation_label.ravel())))
-    print("\nTesting set Accuracy:"+str(classifier.score(test_data,test_label.ravel())))
+    f.write("\nAccuracy for Radial Basis Function with C = "+str(i))
+    kernel_functions(C=float(i))    
 
 
-# linear_kernel()
-# rbf_gamma1()
-# rbf_gamma_default()
-# rbf_varyC()
 """
 Script for Extra Credit Part
 """
