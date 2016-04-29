@@ -302,8 +302,7 @@ print('\n\n--------------SVM-------------------\n\n')
 ##################
 f=open('output.txt','w')
 
-def kernel_functions(gamma='auto',C=1.0,kernel='rbf'):
-    classifier = SVC(gamma=gamma,C=C,kernel=kernel)
+def kernel_functions(classifier):
     classifier.fit(train_data,train_label.ravel())
     trainingaccuracy=classifier.score(train_data,train_label.ravel())*100
     print("\nTraining Data: "+str(trainingaccuracy))
@@ -315,23 +314,26 @@ def kernel_functions(gamma='auto',C=1.0,kernel='rbf'):
     print("\nTesting set Accuracy: "+ str(testingaccuracy))
     f.write("\nTesting set Accuracy: "+ str(testingaccuracy))
 
-# def linear_kernel():
-# print("\nAccuracy for Linear Kernel")
-# kernel_functions(kernel='linear')
+def linear_kernel():
+print("\nAccuracy for Linear Kernel")
+kernel_functions(kernel='linear')
 
 print("\nAccuracy for Radial Basis Function with gamma 1")
 f.write("\nAccuracy for Radial Basis Function with gamma 1")
-kernel_functions(gamma=1.0)
+clf = SVC(gamma=1.0)
+kernel_functions(clf)
 # def rbf_gamma_default():
 
 print("\nAccuracy for Radial Basis Function for default arguments and C=1 ")
 f.write("\nAccuracy for Radial Basis Function for default arguments and C=1 ")
-kernel_functions()
+clf = SVC()
+kernel_functions(clf)
 
 for i in range(10,101,10):
     print("\nAccuracy for Radial Basis Function with C = "+str(i))
     f.write("\nAccuracy for Radial Basis Function with C = "+str(i))
-    kernel_functions(C=float(i))    
+    clf = SVC(C=float(i))
+    kernel_functions(clf)    
 
 
 """
