@@ -1,0 +1,75 @@
+
+
+--------------SVM-------------------
+
+
+Radial Basis with everything set to default
+
+Accuracy for Radial Basis Function with C = 10
+
+Validation Data0.9618
+
+Testing set Accuracy:0.961
+Radial Basis with everything set to default
+
+Accuracy for Radial Basis Function with C = 20
+
+Validation Data0.969
+
+Testing set Accuracy:0.9667
+Radial Basis with everything set to default
+
+Accuracy for Radial Basis Function with C = 30
+
+Validation Data0.971
+
+Testing set Accuracy:0.9704
+Radial Basis with everything set to default
+
+Accuracy for Radial Basis Function with C = 40
+
+Validation Data0.9723
+
+Testing set Accuracy:0.9719
+Radial Basis with everything set to default
+
+Accuracy for Radial Basis Function with C = 50
+
+Validation Data0.9731
+
+Testing set Accuracy:0.9719
+Radial Basis with everything set to default
+
+Accuracy for Radial Basis Function with C = 60
+
+Validation Data0.9738
+
+Testing set Accuracy:0.9716
+Radial Basis with everything set to default
+
+Accuracy for Radial Basis Function with C = 70
+
+Validation Data0.9736
+
+Testing set Accuracy:0.9726
+Radial Basis with everything set to default
+
+Accuracy for Radial Basis Function with C = 80
+
+Validation Data0.9739
+
+Testing set Accuracy:0.9733
+Radial Basis with everything set to default
+
+Accuracy for Radial Basis Function with C = 90
+
+Validation Data0.9736
+
+Testing set Accuracy:0.9734
+Radial Basis with everything set to default
+
+Accuracy for Radial Basis Function with C = 100
+
+Validation Data0.9741
+
+Testing set Accuracy:0.974
